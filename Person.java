@@ -16,4 +16,12 @@ public class Person {
     public String getBirthday() {
         return birthday;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
 }

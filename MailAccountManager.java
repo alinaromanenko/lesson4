@@ -35,11 +35,11 @@ public interface MailAccountManager {
      * выбрасывается исключение TooManyLoginAttemptsException
      */
     Person getPerson(String email, String password) throws
-            TooManyLoginAttemptsException;
+            TooManyLoginAttemptsException, WrongCredentialsException, IOException;
 
     /**
      * Метод возвращает кол-во аккаунтов в базе
      */
-    int numOfAccounts();
+    int numOfAccounts() throws IOException;
 
 }

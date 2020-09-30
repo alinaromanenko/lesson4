@@ -30,10 +30,11 @@ public class CSVparser {
             fw.write(email+","+password+","+person.getName()+","+person.getBirthday()+"\n");
             fw.close();
         }
-        void rewriter(Map csv) throws IOException {
+        void rewriter(Map<String, String[]>  csv) throws IOException {
             FileWriter fw = new FileWriter(file);
             for (String email: csv.keySet()){
                 fw.write(email+","+csv.get(email)[0]+","+csv.get(email)[1]+","+csv.get(email)[2]+"\n");
+                fw.close();
         }
         }
 }
