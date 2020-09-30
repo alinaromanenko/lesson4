@@ -1,13 +1,7 @@
 package lesson4;
 
-import javenue.csv.Csv;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.DuplicateFormatFlagsException;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -43,7 +37,17 @@ public class AccountManagerImpl implements MailAccountManager{
 
     @Override
     public Person getPerson(String email, String password) throws TooManyLoginAttemptsException, WrongCredentialsException, IOException {
-        if (!csv.reader().containsKey(email) | !csv.reader().get(email)[0].equals(password)) throw new WrongCredentialsException("Ошибка! Неверный логин или паоль");
+        AttemptCounter counter = AttemptCounter.getInstance();
+        try {
+            if (!csv.reader().containsKey(email) | !csv.reader().get(email)[0].equals(password)) {
+                counter.count();
+                throw new WrongCredentialsException("Ошибка! Неверный логин или пароль");
+            }
+        }
+        catch (WrongCredentialsException error){
+            error.printStackTrace();
+        }
+        counter.refresh();
         return new Person(csv.reader().get(email)[1], csv.reader().get(email)[2]);
     }
 

@@ -19,6 +19,7 @@ public class Ex7 {
 
         try {
             System.out.println(AMI.getPerson("rick@yandex.ru", "12345").getName()+" "+AMI.getPerson("rick@yandex.ru", "12345").getBirthday());
+            AMI.getPerson("ric@yandex.ru", "12345");
         }
         catch (WrongCredentialsException|TooManyLoginAttemptsException error){
             error.printStackTrace();
