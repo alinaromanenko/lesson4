@@ -26,9 +26,14 @@ public class CSVparser {
     }
 
     void writer(String email, String password, Person person) throws IOException {
-            FileWriter fw = new FileWriter(file);
+        FileWriter fw = new FileWriter(file, true);
             fw.write(email+","+password+","+person.getName()+","+person.getBirthday()+"\n");
-            System.out.println("Otrabotala");
             fw.close();
+        }
+        void rewriter(Map csv) throws IOException {
+            FileWriter fw = new FileWriter(file);
+            for (String email: csv.keySet()){
+                fw.write(email+","+csv.get(email)[0]+","+csv.get(email)[1]+","+csv.get(email)[2]+"\n");
+        }
         }
 }

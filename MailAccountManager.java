@@ -20,13 +20,13 @@ public interface MailAccountManager {
      * верно. В противном случае выбрасывает
      * ошибку WrongCredentialsException
      */
-    void removeAccount(String email, String password);
+    void removeAccount(String email, String password) throws IOException;
 
     /**
      * Метод возвращает true если пользователь с данным логином
      * существует
      */
-    boolean hasAccount(String email);
+    boolean hasAccount(String email) throws IOException;
 
     /**
      * Метод возвращает Person, если логин и пароль совпадают, иначе

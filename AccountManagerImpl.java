@@ -8,26 +8,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.DuplicateFormatFlagsException;
 
+
 public class AccountManagerImpl implements MailAccountManager{
     private CSVparser csv;
     AccountManagerImpl(){
-         this.csv= new CSVparser("base.txt");
-         //"/Users/Programming.LAPTOP-SIV4CDTS/IdeaProjects/NSU/src/lesson4/base.csv"
+         this.csv= new CSVparser("base.csv");
     }
     @Override
     public void registerNewAccount(String email, String password, Person person) throws DuplicateAccountException, IOException {
-        //if (csv.reader().containsKey(email)) throw new DuplicateAccountException("Данный аккаунт присутсвует в базе");
+        System.out.println(csv.reader().get(email)[0]);
+        if (csv.reader().containsKey(email)) throw new DuplicateAccountException("Ошибка!Данный аккаунт присутсвует в базе");
         csv.writer(email, password, person);
     }
 
     @Override
-    public void removeAccount(String email, String password) {
+    public void removeAccount(String email, String password) throws IOException {
+        if (csv.reader().containsKey(email) & csv.reader().get(email)[0].equals(password)) csv.reader().remove(email);//rewriter()
+
 
     }
 
     @Override
-    public boolean hasAccount(String email) {
-        return false;
+    public boolean hasAccount(String email) throws IOException {
+        return csv.reader().containsKey(email);
     }
 
     @Override
