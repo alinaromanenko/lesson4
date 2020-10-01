@@ -20,4 +20,8 @@ public class AttemptCounter {
     void refresh(){
         count = 0;
     }
+    String status() {
+        if (5-count == 0) return "Попыток больше нет.";
+        return "Ещё "+Integer.toString(5-count)+" попытки.";
+    }
 }

@@ -39,13 +39,18 @@ public class AccountManagerImpl implements MailAccountManager{
     public Person getPerson(String email, String password) throws TooManyLoginAttemptsException, WrongCredentialsException, IOException {
         AttemptCounter counter = AttemptCounter.getInstance();
         try {
-            if (!csv.reader().containsKey(email) | !csv.reader().get(email)[0].equals(password)) {
+            if (!csv.reader().containsKey(email)) {
                 counter.count();
-                throw new WrongCredentialsException("Ошибка! Неверный логин или пароль");
+                throw new WrongCredentialsException("Ошибка! Неверный логин или пароль."+counter.status());
+            }
+            if(!csv.reader().get(email)[0].equals(password)) {
+                counter.count();
+                throw new WrongCredentialsException("Ошибка! Неверный логин или пароль."+counter.status());
             }
         }
         catch (WrongCredentialsException error){
             error.printStackTrace();
+            return null;
         }
         counter.refresh();
         return new Person(csv.reader().get(email)[1], csv.reader().get(email)[2]);
