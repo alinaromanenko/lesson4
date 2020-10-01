@@ -1,9 +1,11 @@
 package lesson4;
 
+import org.w3c.dom.ls.LSOutput;
+
 public class AttemptCounter {
     private static AttemptCounter instance;
     private int count;
-    private AttemptCounter() {int count = 0;};
+    private AttemptCounter() {count = 0;};
 
     public static AttemptCounter getInstance() {
         if (instance == null) {
@@ -24,4 +26,5 @@ public class AttemptCounter {
         if (5-count == 0) return "Попыток больше нет.";
         return "Ещё "+Integer.toString(5-count)+" попытки.";
     }
+
 }

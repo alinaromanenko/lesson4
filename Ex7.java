@@ -11,7 +11,7 @@ public class Ex7 {
         AMI.registerNewAccount("ali@yandex.ru", "12345", alina);
         AMI.registerNewAccount("rick@yandex.ru", "12345", rick);
 
-        //AMI.removeAccount("ali@yandex.ru", "12345");
+        AMI.removeAccount("ali@yandex.ru", "12345");
 
         System.out.println(AMI.hasAccount("ali@yandex.ru"));
 

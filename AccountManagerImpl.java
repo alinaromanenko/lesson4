@@ -11,7 +11,7 @@ public class AccountManagerImpl implements MailAccountManager{
          this.csv= new CSVparser("base.csv");
     }
     @Override
-    public void registerNewAccount(String email, String password, Person person) throws DuplicateAccountException, IOException {
+    public void registerNewAccount(String email, String password, Person person) throws IOException {
         try {
             if (csv.reader().containsKey(email)) throw new DuplicateAccountException("Ошибка!Данный аккаунт присутсвует в базе");
             csv.writer(email, password, person);
@@ -36,14 +36,10 @@ public class AccountManagerImpl implements MailAccountManager{
     }
 
     @Override
-    public Person getPerson(String email, String password) throws TooManyLoginAttemptsException, WrongCredentialsException, IOException {
+    public Person getPerson(String email, String password) throws TooManyLoginAttemptsException, IOException {
         AttemptCounter counter = AttemptCounter.getInstance();
         try {
-            if (!csv.reader().containsKey(email)) {
-                counter.count();
-                throw new WrongCredentialsException("Ошибка! Неверный логин или пароль."+counter.status());
-            }
-            if(!csv.reader().get(email)[0].equals(password)) {
+            if (!csv.reader().containsKey(email) || !csv.reader().get(email)[0].equals(password)) {
                 counter.count();
                 throw new WrongCredentialsException("Ошибка! Неверный логин или пароль."+counter.status());
             }
